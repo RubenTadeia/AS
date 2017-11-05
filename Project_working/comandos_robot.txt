@@ -1,0 +1,22 @@
+#Primeiro comando
+roscore
+
+
+#Rosaria
+rosparam set RosAria/port /dev/pioneer/usb_to_serial_port && rosrun rosaria RosAria
+
+
+#Rodar
+rostopic pub -r 10 /RosAria/cmd_vel geometry_msgs/Twist "{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.1}}"
+
+
+#Andar para a frente
+rostopic pub -r 10 /RosAria/cmd_vel geometry_msgs/Twist "{linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
+
+
+#Comandar pelo teclado 
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/RosAria/cmd_vel
+
+
+#Comentários
+Valores de velocidade linear para 

@@ -1,0 +1,99 @@
+[global_config]
+  suppress_multiple_term_dialog = True
+  window_state = maximise
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child0]]]
+      fullscreen = False
+      last_active_term = 9940a02b-02b8-49b7-9009-3ea6f9190a1b
+      last_active_window = True
+      maximised = True
+      order = 0
+      parent = ""
+      position = 55:27
+      size = 1865, 1053
+      title = alone@sydney: ~
+      type = Window
+    [[[child1]]]
+      order = 0
+      parent = child0
+      position = 927
+      ratio = 0.498659517426
+      type = HPaned
+    [[[child11]]]
+      order = 1
+      parent = child7
+      position = 463
+      ratio = 0.5
+      type = HPaned
+    [[[child2]]]
+      order = 0
+      parent = child1
+      position = 524
+      ratio = 0.500474833808
+      type = VPaned
+    [[[child4]]]
+      order = 1
+      parent = child2
+      position = 460
+      ratio = 0.499460625674
+      type = HPaned
+    [[[child7]]]
+      order = 1
+      parent = child1
+      position = 524
+      ratio = 0.500474833808
+      type = VPaned
+    [[[child8]]]
+      order = 0
+      parent = child7
+      position = 463
+      ratio = 0.5
+      type = HPaned
+    [[[terminal10]]]
+      order = 1
+      parent = child8
+      profile = default
+      type = Terminal
+      uuid = c4d5b65e-e152-47a3-99b0-3194b73dc1ae
+    [[[terminal12]]]
+      order = 0
+      parent = child11
+      profile = default
+      type = Terminal
+      uuid = b94b4249-e0b2-4631-98d3-4a904fc3028b
+    [[[terminal13]]]
+      order = 1
+      parent = child11
+      profile = default
+      type = Terminal
+      uuid = 23b52465-2f44-4cf8-9ac6-f7958ccdb2c5
+    [[[terminal3]]]
+      order = 0
+      parent = child2
+      profile = default
+      type = Terminal
+      uuid = 9940a02b-02b8-49b7-9009-3ea6f9190a1b
+    [[[terminal5]]]
+      order = 0
+      parent = child4
+      profile = default
+      type = Terminal
+      uuid = 7620f082-e2fa-458d-90fb-ba14dfc8d9e3
+    [[[terminal6]]]
+      order = 1
+      parent = child4
+      profile = default
+      type = Terminal
+      uuid = 6af3048a-7ebb-408f-bca2-2d174e1b5388
+    [[[terminal9]]]
+      order = 0
+      parent = child8
+      profile = default
+      type = Terminal
+      uuid = ca3d0b7d-c0a0-404e-854a-0592c105f81e
+[plugins]
+[profiles]
+  [[default]]
+    background_image = None

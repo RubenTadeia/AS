@@ -19,7 +19,7 @@ def callback(msg):
 
 def main():
     rospy.init_node('location_monitor')
-    rospy.Subscriber("/odom", Odometry, callback)
+    rospy.Subscriber("/zoeira", Odometry, callback)
     rospy.spin()
 
 if __name__ == '__main__':

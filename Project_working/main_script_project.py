@@ -2,4 +2,4 @@
 import os
 
 # Opens 3 more terminals to work with the robot
-os.system ("~/git/AS/Project_working/3terminals.sh");
+os.system ("sh ~/git/AS/Project_working/running_terminals.sh");

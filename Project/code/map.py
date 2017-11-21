@@ -6,8 +6,6 @@ import numpy
 import matplotlib.pyplot as plt
 import re
 
-
-
 def create_lines_map(Map,k,l,cluster_map,Occup_grid):
 	i = k
 	j = l
@@ -123,7 +121,7 @@ def find_root(Map,Occupancy_grid,root_ant):
 				
 	
 
-def find_root2(Map, Occupancy_grid,root):
+#def find_root2(Map, Occupancy_grid,root):
 	
 		
 def vert_line(Map, Occupancy_grid,line_points,i,j):	
@@ -263,7 +261,7 @@ if __name__ == "__main__":
 	
 	
 	
-	with open('/home/vitor/Desktop/map3.txt','r') as f:
+	with open('/home/alone/Desktop/map3.txt','r') as f:
 		for line in f:
 			if line.startswith('data:'):
 				b = re.findall(r'\d+', line)

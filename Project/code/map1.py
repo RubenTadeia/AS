@@ -44,10 +44,11 @@ def create_lines_map(Map,k,l,cluster_map,Occup_grid):
 					m, b = numpy.linalg.lstsq(A, y_cluster)[0]
 					print m
 					print b
-			#plt.plot(x_cluster, y_cluster, 'o', label='Original data', markersize=10)
-			#plt.plot(x_cluster, m*x_cluster + b, 'r', label='Fitted line')
-			#plt.legend()
-			#plt.show()
+			plt.plot(x_cluster, y_cluster, 'o', label='Original data', markersize=10)
+			plt.plot(x_cluster, m*x_cluster + b, 'r', label='Fitted line')
+			plt.legend()
+			plt.show()
+			plt.plot()
 	
 def versao1(Map,cluster_map,Occup_grid):
 	k=0

@@ -1,8 +1,9 @@
 # coding=utf-8
 import numpy as np
 
-
+# Esse codigo é nosso, só o comentario do commit que foi automatico (igual do ultimo).
 # The Error from Laser is 30 mm
+
 
 class KF(object):
 

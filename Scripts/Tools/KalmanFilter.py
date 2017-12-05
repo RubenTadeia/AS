@@ -35,10 +35,10 @@ r = rospy.Rate(10)
 
 for x in range(180):
     laser_line.append(x*1.8)
-print("on")
+# print("on")
 
 coordXY = (lambda x, th: [x*math.cos((1.0*th/180)*math.pi), x*math.sin((1.0*th/180)*math.pi)])
-print("on1")
+# print("on1")
 
 
 """
@@ -63,7 +63,7 @@ def modulo(x):
 
 
 
-print("on2")
+# print("on2")
 """
 -------------------  -------------------  ------------------- 
 -------------------      Loop of EKF      ------------------- 
@@ -85,10 +85,11 @@ Q = np.diag([sLaser**2, sLaser**2, sCourse**2, sVelocity**2, sYaw**2])
 varLASER = 0.3  # Standard Deviation of LASER Measurement
 varspeed = 1.0  # Variance of the speed measurement
 varyaw = 0.1  # Variance of the yawrate measurement
-R = np.matrix([[varLASER**2, 0.0, 0.0, 0.0],
-               [0.0, varLASER**2, 0.0, 0.0],
-               [0.0, 0.0, varspeed**2, 0.0],
-               [0.0, 0.0, 0.0, varyaw**2]])
+R = np.matrix([[varLASER**2, 0.0, 0.0, 0.0, 0.0],
+               [0.0, varLASER**2, 0.0, 0.0, 0.0],
+               [0.0, 0.0, varyaw*varspeed, 0.0, 0.0],
+               [0.0, 0.0, 0.0, varspeed**2, 0.0],
+               [0.0, 0.0, 0.0, 0.0, varyaw**2]])
 
 I = np.eye(numstates)
 
@@ -122,28 +123,28 @@ dstate = []
 
 Z = None
 
-
-def savestates(x, Z, P, K):
-    x0.append(float(x[0]))
-    x1.append(float(x[1]))
-    x2.append(float(x[2]))
-    x3.append(float(x[3]))
-    x4.append(float(x[4]))
-    Zx.append(float(Z[0]))
-    Zy.append(float(Z[1]))
-    Px.append(float(P[0, 0]))
-    Py.append(float(P[1, 1]))
-    Pdx.append(float(P[2, 2]))
-    Pdy.append(float(P[3, 3]))
-    Pddx.append(float(P[4, 4]))
-    Kx.append(float(K[0, 0]))
-    Ky.append(float(K[1, 0]))
-    Kdx.append(float(K[2, 0]))
-    Kdy.append(float(K[3, 0]))
-    Kddx.append(float(K[4, 0]))
+#
+# def savestates(x, Z, P, K):
+#     x0.append(float(x[0]))
+#     x1.append(float(x[1]))
+#     x2.append(float(x[2]))
+#     x3.append(float(x[3]))
+#     x4.append(float(x[4]))
+#     Zx.append(float(Z[0]))
+#     Zy.append(float(Z[1]))
+#     Px.append(float(P[0, 0]))
+#     Py.append(float(P[1, 1]))
+#     Pdx.append(float(P[2, 2]))
+#     Pdy.append(float(P[3, 3]))
+#     Pddx.append(float(P[4, 4]))
+#     Kx.append(float(K[0, 0]))
+#     Ky.append(float(K[1, 0]))
+#     Kdx.append(float(K[2, 0]))
+#     Kdy.append(float(K[3, 0]))
+#     Kddx.append(float(K[4, 0]))
 
 # -------------------      END EKF GLOBAL   -------------------#
-print("on-on")
+# print("on-on")
 def callback(odo, laser):
 
     global laser_old
@@ -168,7 +169,7 @@ def callback(odo, laser):
 
     laser_old = lasers
 
-    rospy.loginfo("vx: {}, Th: {}, VLaser: {}".format(vx, th, vlasers))
+    # rospy.loginfo("vx: {}, Th: {}, VLaser: {}".format(vx, th, vlasers))
 
     """
     -------------------  -------------------  ------------------- 
@@ -181,7 +182,7 @@ def callback(odo, laser):
     # Project the state ahead
     # see "Dynamic Matrix"
     if np.abs(odo.twist.twist.angular.z) < 0.0001: # Driving straight
-        print x
+        # print x
         x[0] = x[0] + x[3]*dt * np.cos(x[2])
         x[1] = x[1] + x[3]*dt * np.sin(x[2])
         x[2] = x[2]
@@ -220,11 +221,13 @@ def callback(odo, laser):
     # Measurement Function
     hx = np.matrix([[float(x[0])],
                     [float(x[1])],
+                    [float(x[2])],
                     [float(x[3])],
                     [float(x[4])]])
 
     JH = np.matrix([[1.0, 0.0, 0.0, 0.0, 0.0],
                     [0.0, 1.0, 0.0, 0.0, 0.0],
+                    [0.0, 0.0, 1.0, 0.0, 0.0],
                     [0.0, 0.0, 0.0, 1.0, 0.0],
                     [0.0, 0.0, 0.0, 0.0, 1.0]])
 
@@ -232,7 +235,7 @@ def callback(odo, laser):
     K = (P*JH.T) * np.linalg.inv(S)
 
     # Update the estimate via
-    measurements = np.array([odo.pose.pose.position.x, odo.pose.pose.position.y, odo.twist.twist.linear.x, odo.twist.twist.angular.z])
+    measurements = np.array([odo.pose.pose.position.x, odo.pose.pose.position.y, 1, odo.twist.twist.linear.x, odo.twist.twist.angular.z])
     Z = measurements.reshape(JH.shape[0], 1)
     y = Z - (hx)                        # Innovation or Residual
     x = x + (K*y)
@@ -254,13 +257,13 @@ def callback(odo, laser):
 
     ekf_x = Vector_EKF[0]
     ekf_y = Vector_EKF[1]
-    speed = Vector_EKF[2]
-    yawrate = Vector_EKF[3]
+    speed = Vector_EKF[3]
+    yawrate = Vector_EKF[4]
 
     odom_quat = tf.transformations.quaternion_from_euler(0, 0, th)
 
     odom_broadcaster.sendTransform(
-        (x, y, 0.),
+        (ekf_x, ekf_y, 0.),
         odom_quat,
         current_time,
         "base_link",
@@ -270,6 +273,12 @@ def callback(odo, laser):
     odom = Odometry()
     odom.header.stamp = current_time
     odom.header.frame_id = "odom"
+
+    # Debug
+
+    # print float(ekf_x)
+    # print float(ekf_y)
+
     odom.pose.pose = Pose(Point(ekf_x, ekf_y, 0.), Quaternion(*odom_quat))
 
     odom.child_frame_id = "base_link"

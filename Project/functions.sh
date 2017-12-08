@@ -1,7 +1,5 @@
 #!/bin/bash
 
-clear
-
 #############
 # GLOBAL VAR
 #############
@@ -18,20 +16,30 @@ cyanBackground='\e[46m'
 NC='\033[0m'
 reset='\e[0m'
 
+
 #############
 # FUNCTIONS
 #############
 
-prettytPrint()
+roscoreIntro()
 {
-	printf ""$lightMagenta"####################$NC"; echo ""
-	printf ""$blue"File's Content"; echo "";
-	printf ""$lightMagenta"####################$white"; echo "";echo "";
+	printf ""$lightMagenta"####################"$NC""; echo ""
+	printf ""$red"Roscore Starting"; echo "";
+	printf ""$lightMagenta"####################"$white""; echo "";echo "";
+	roscore
 }
+
+#############
+# FUNCTIONS
+#############
 
 main()
 {
-	
+	if [ "$1" = "first" ];
+		then
+			echo "hello";
+			roscoreIntro
+	fi	
 }
 
 #############
